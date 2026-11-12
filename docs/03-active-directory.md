@@ -59,6 +59,8 @@ muster.internal
     └── Admins                 adm-timur
 ```
 
+![OU structure in Active Directory Users and Computers](../screenshots/03-aduc-ou-tree.png)
+
 Design decisions:
 
 - **Own OU tree under `Muster`** instead of the default `Users` and `Computers` containers: group policies cannot be linked to containers, and block 4 synchronizes only `Benutzer` and `Computer` to Entra ID.
@@ -147,6 +149,10 @@ gpresult /r               # Group Policy was applied from: DC01.muster.internal
 ```
 
 ![Domain user signed in on CL01](../screenshots/03-cl01-domain-logon.png)
+
+On DC01 the DHCP console shows the lease for CL01 (10.10.20.100) in the CLIENT scope. The name `CL01.muster.internal` confirms that the request came through the Sophos relay and that the client registered under its new name:
+
+![DHCP lease of CL01 on DC01](../screenshots/03-dhcp-lease.png)
 
 ## Updates
 
