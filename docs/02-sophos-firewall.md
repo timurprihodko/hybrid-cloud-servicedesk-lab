@@ -120,8 +120,8 @@ After setup the control center shows the firewall running on SFOS 22.0.3 with 22
 
 ## Next steps (part 2)
 
-1. DHCP relay from CLIENT to DC01.
-2. Strict rules instead of `TEMP-Any-to-WAN`: CLIENT → SERVER only AD services (53, 88, 123, 135, 389, 445, 464, 636, 3268, 49152-65535); CLIENT → WAN only HTTP/HTTPS with web filtering; SERVER → WAN only HTTPS.
+1. ~~DHCP relay from CLIENT to DC01.~~ Done in block 3, see [03 - Active Directory foundation](03-active-directory.md#dhcp-relay).
+2. Strict rules instead of `TEMP-Any-to-WAN`: ~~CLIENT → SERVER only AD services~~ (done in block 3: rule `CLIENT-to-DC01`, service group `AD-Client`); CLIENT → WAN only HTTP/HTTPS with web filtering; SERVER → WAN only HTTPS, plus DNS and NTP for DC01.
 3. Web filter policy for CLIENT with one exception handled as a change ticket.
 4. Remote access VPN (Sophos Connect), VPN pool 10.10.99.0/24.
 5. Review and fix the Firewall health check findings (22 noncompliant policies after setup).

@@ -1,0 +1,21 @@
+GivenName,Surname,SamAccountName,Department,DeptCode,Title
+Andrea,Huber,andrea.huber,Geschäftsführung,Geschaeftsfuehrung,Geschäftsführerin
+Markus,Gruber,markus.gruber,Geschäftsführung,Geschaeftsfuehrung,Prokurist
+Sabine,Wagner,sabine.wagner,Buchhaltung,Buchhaltung,Leitung Buchhaltung
+Thomas,Bauer,thomas.bauer,Buchhaltung,Buchhaltung,Buchhalter
+Julia,Pichler,julia.pichler,Buchhaltung,Buchhaltung,Lohnverrechnerin
+Stefan,Moser,stefan.moser,Buchhaltung,Buchhaltung,Buchhalter
+Katharina,Steiner,katharina.steiner,Buchhaltung,Buchhaltung,Buchhalterin
+Michael,Hofer,michael.hofer,Vertrieb,Vertrieb,Vertriebsleiter
+Lisa,Mayer,lisa.mayer,Vertrieb,Vertrieb,Key Account Managerin
+Daniel,Leitner,daniel.leitner,Vertrieb,Vertrieb,Vertriebsmitarbeiter
+Sandra,Berger,sandra.berger,Vertrieb,Vertrieb,Vertriebsmitarbeiterin
+Florian,Fuchs,florian.fuchs,Vertrieb,Vertrieb,Außendienst
+Martina,Eder,martina.eder,Vertrieb,Vertrieb,Innendienst
+Lukas,Schwarz,lukas.schwarz,Vertrieb,Vertrieb,Außendienst
+Claudia,Wimmer,claudia.wimmer,Vertrieb,Vertrieb,Innendienst
+Patrick,Holzer,patrick.holzer,Vertrieb,Vertrieb,Vertriebsassistent
+Jürgen,Brunner,juergen.brunner,IT,IT,IT-Leiter
+Elena,Koller,elena.koller,IT,IT,Systemadministratorin
+David,Lang,david.lang,IT,IT,IT-Support
+Nina,Auer,nina.auer,IT,IT,IT-Support

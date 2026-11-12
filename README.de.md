@@ -6,9 +6,10 @@ Fortsetzung meines ersten Labs [homelab](https://github.com/timurprihodko/homela
 
 ## Aktueller Stand
 
-- **VirtualBox:** Firewall (FW01) und Domain Controller (DC01) eingerichtet; Windows-11-Clients folgen.
-- **Sophos Firewall (SFOS 22.0.3):** Zonen SERVER und CLIENT, Interfaces, NAT und eine temporäre Internet-Regel eingerichtet; strenges Regelwerk, Webfilter und VPN folgen.
-- **Geplant:** Active Directory, Entra Connect, Conditional Access, Intune mit Autopilot, Exchange Online, Defender for Business, Action1, 15 dokumentierte Tickets in Jira Service Management.
+- **VirtualBox:** Firewall (FW01), Domain Controller (DC01) und Windows-11-Client (CL01) eingerichtet; zweiter Client (CL02) folgt.
+- **Sophos Firewall (SFOS 22.0.3):** Zonen SERVER und CLIENT, Interfaces, NAT, DHCP-Relay und eine Regel nur für AD-Dienste vom Client zum DC eingerichtet; strenges Regelwerk Richtung Internet, Webfilter und VPN folgen.
+- **Active Directory:** Domäne `muster.internal` mit DNS und DHCP, OU-Struktur, 20 Benutzer:innen aus CSV per PowerShell, CL01 in der Domäne.
+- **Geplant:** Entra Connect, Conditional Access, Intune mit Autopilot, Exchange Online, Defender for Business, Action1, 15 dokumentierte Tickets in Jira Service Management.
 
 ## Netzwerk
 

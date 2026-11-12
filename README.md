@@ -8,9 +8,9 @@ Follow-up to my first lab, [homelab](https://github.com/timurprihodko/homelab) (
 
 | # | Block | Status |
 | --- | --- | --- |
-| 1 | VirtualBox host and VMs | In progress: FW01 and DC01 done, CL01 and CL02 pending |
-| 2 | Sophos Firewall: zones, rules, VPN | In progress: base configuration done, strict rules, web filter and VPN pending |
-| 3 | Active Directory foundation | Planned |
+| 1 | VirtualBox host and VMs | In progress: FW01, DC01 and CL01 done, CL02 pending |
+| 2 | Sophos Firewall: zones, rules, VPN | In progress: base configuration, DHCP relay and CLIENT-to-DC rule done; strict WAN rules, web filter and VPN pending |
+| 3 | Active Directory foundation | Done: forest `muster.internal`, DNS, DHCP, OUs, 20 users, CL01 joined |
 | 4 | Hybrid identity (AD to Entra ID) | Planned |
 | 5 | Entra ID: MFA, Conditional Access, SSPR, roles | Planned |
 | 6 | Intune: enrollment, compliance, apps, Autopilot | Planned |
@@ -55,8 +55,8 @@ Cloud services (planned): Microsoft 365 Business Premium trial (Entra ID, Intune
 | --- | --- | --- | --- | --- | --- |
 | FW01 | Sophos Firewall Home (SFOS 22.0.3) | Gateway, zones, NAT, VPN | 2 | 4 GB | 80 GB dynamic |
 | DC01 | Windows Server 2025 Standard Evaluation (Desktop Experience) | AD DS, DNS, DHCP, Entra Connect | 2 | 3 GB | 60 GB dynamic |
-| CL01 | Windows 11 Enterprise Evaluation | Hybrid join, Intune | 2 | 3 GB | planned |
-| CL02 | Windows 11 Enterprise Evaluation | Entra join, Autopilot | 2 | 3 GB | planned |
+| CL01 | Windows 11 Enterprise Evaluation (build 26100) | Domain member; hybrid join and Intune planned | 2 | 4 GB | 64 GB dynamic |
+| CL02 | Windows 11 Enterprise Evaluation | Entra join, Autopilot | 2 | 4 GB | planned |
 
 Host: Windows 11 Home, 32 GB RAM, 8 cores / 16 threads, VirtualBox.
 
@@ -64,6 +64,8 @@ Host: Windows 11 Home, 32 GB RAM, 8 cores / 16 threads, VirtualBox.
 
 - [01 - VirtualBox setup](docs/01-virtualbox-setup.md)
 - [02 - Sophos Firewall](docs/02-sophos-firewall.md)
+- [03 - Active Directory foundation](docs/03-active-directory.md)
+- [Scripts](scripts/README.md)
 
 ## Repository structure
 
@@ -76,7 +78,7 @@ hybrid-cloud-servicedesk-lab/
 ├── runbooks/      onboarding, offboarding, lost device
 ├── tickets/       15 service desk cases: symptom, cause, solution
 ├── kb/            knowledge base articles (German)
-├── scripts/       PowerShell scripts
+├── scripts/       PowerShell scripts (AD, DNS, DHCP, users, domain join)
 └── screenshots/
 ```
 
