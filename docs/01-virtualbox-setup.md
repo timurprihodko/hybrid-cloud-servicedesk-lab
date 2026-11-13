@@ -88,6 +88,38 @@ Desktop Experience instead of Server Core: Microsoft Entra Connect, planned for 
 
    DNS `1.1.1.1` is temporary. After AD DS is installed, DC01 uses itself for DNS and 1.1.1.1 becomes a forwarder.
 
+## VM: CL02
+
+Cloud-only client for block 6 (Microsoft Entra join, Windows Autopilot). Not joined to the AD domain. CL01 is documented in [03 - Active Directory](03-active-directory.md).
+
+| Setting | Value |
+| --- | --- |
+| ISO | Windows 11 Enterprise Evaluation, English (same as CL01) |
+| Unattended installation | Skipped: VirtualBox would complete OOBE and create a local user |
+| Memory / CPUs | 4096 MB / 2 |
+| Disk | 64 GB VDI, dynamically allocated |
+| Firmware | EFI, Secure Boot, TPM 2.0 |
+| Adapter 1 | Internal network `CLIENT` |
+
+Windows is installed, but OOBE is **not** completed. Autopilot registers a device by its hardware hash and provisions it from OOBE; a device that already went through setup would have to be reset. The VM is stopped at the first OOBE screen (region selection) and kept in that state until block 6.
+
+Network check from OOBE (**Shift + F10**):
+
+```cmd
+ipconfig | findstr IPv4
+ping -n 2 dc01.muster.internal
+ping -n 2 login.microsoftonline.com
+```
+
+| Check | Result |
+| --- | --- |
+| IPv4 address | 10.10.20.101 from the DC01 scope through the DHCP relay on FW01 |
+| DC01 | Reachable, name resolved by DC01 DNS |
+| Entra sign-in endpoint | `login.microsoftonline.com` resolved and reachable through FW01 |
+| Windows build | 10.0.26300 |
+
+![CL02 network check from OOBE](../screenshots/01-cl02-oobe-network.png)
+
 ## Verification
 
 | Check | Result |
@@ -104,6 +136,7 @@ Desktop Experience instead of Server Core: Microsoft Entra Connect, planned for 
 | FW01 | `FW01-base` | Zones, interfaces, temporary rule and NAT configured |
 | DC01 | `DC01-prepared` | IP, time zone, host name |
 | DC01 | `DC01-online` | Internet through FW01 verified |
+| CL02 | `CL02-oobe` | Windows installed, stopped at the first OOBE screen, network verified |
 
 Rule: at most two snapshots per VM; delete old ones after the next one is verified.
 

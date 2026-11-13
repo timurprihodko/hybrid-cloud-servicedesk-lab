@@ -8,7 +8,7 @@ Follow-up to my first lab, [homelab](https://github.com/timurprihodko/homelab) (
 
 | # | Block | Status |
 | --- | --- | --- |
-| 1 | VirtualBox host and VMs | In progress: FW01, DC01 and CL01 done, CL02 pending |
+| 1 | VirtualBox host and VMs | Done: FW01, DC01, CL01; CL02 installed and kept in OOBE for Autopilot (block 6) |
 | 2 | Sophos Firewall: zones, rules, VPN | In progress: base configuration, DHCP relay and CLIENT-to-DC rule done; strict WAN rules, web filter and VPN pending |
 | 3 | Active Directory foundation | Done: forest `muster.internal`, DNS, DHCP, OUs, 20 users, CL01 joined |
 | 4 | Hybrid identity (AD to Entra ID) | Planned |
@@ -56,7 +56,7 @@ Cloud services (planned): Microsoft 365 Business Premium trial (Entra ID, Intune
 | FW01 | Sophos Firewall Home (SFOS 22.0.3) | Gateway, zones, NAT, VPN | 2 | 4 GB | 80 GB dynamic |
 | DC01 | Windows Server 2025 Standard Evaluation (Desktop Experience) | AD DS, DNS, DHCP, Entra Connect | 2 | 3 GB | 60 GB dynamic |
 | CL01 | Windows 11 Enterprise Evaluation (build 26100) | Domain member; hybrid join and Intune planned | 2 | 4 GB | 64 GB dynamic |
-| CL02 | Windows 11 Enterprise Evaluation | Entra join, Autopilot | 2 | 4 GB | planned |
+| CL02 | Windows 11 Enterprise Evaluation (build 26300) | Entra join, Autopilot; kept in OOBE until block 6 | 2 | 4 GB | 64 GB dynamic |
 
 Host: Windows 11 Home, 32 GB RAM, 8 cores / 16 threads, VirtualBox.
 
