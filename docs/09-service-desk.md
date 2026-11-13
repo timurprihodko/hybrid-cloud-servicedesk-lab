@@ -14,7 +14,7 @@ This file grows with the block. The first part (setup) was done before the Micro
 | --- | --- |
 | Product | Jira Service Management, Free plan (up to 3 agents; sold as part of Atlassian "Service Collection") |
 | Space | `Muster IT`, key `IT`, template IT service management |
-| Portal | `Muster IT-Service`, German introduction text |
+| Portal | `Muster IT`, German introduction text |
 | Channel access | Restricted: only customers added by agents or admins (default was open to anyone) |
 | Browser | Separate Chrome profile `Lab` for all lab portals (Jira, Action1, later Entra / Intune / Sophos) |
 
@@ -28,6 +28,8 @@ The Free plan has no change management (Premium only); change management is not 
 | Incidents | Report a system problem, Report broken hardware |
 
 Renaming to German and the knowledge base follow later in block 9.
+
+![Customer portal](../screenshots/09-portal.png)
 
 ### Priorities
 
@@ -69,6 +71,14 @@ A ticket waiting for the user does not count against the service desk. An intern
 
 `Time to close after resolution` kept as template default.
 
+![SLA list](../screenshots/09-sla-list.png)
+
+![Time to first response: goals](../screenshots/09-sla-first-response-goals.png)
+
+![Time to first response: conditions](../screenshots/09-sla-first-response-conditions.png)
+
+![Time to resolution: goals and conditions](../screenshots/09-sla-resolution.png)
+
 ### Verification
 
 Test ticket `IT-1` (Incident), created Friday 13 Nov 14:51, priority Medium:
@@ -80,6 +90,8 @@ Test ticket `IT-1` (Incident), created Friday 13 Nov 14:51, priority Medium:
 
 Both due dates match the business-hours calendar. `IT-1` closed afterwards.
 
+![SLA panel of IT-1](../screenshots/09-sla-test-ticket.png)
+
 ## Action1 account
 
 Account created (EU data center) before the trial. No agent installed yet: agents go only into the lab VMs in block 8, never on the host. The installation token is not stored in this repository.
@@ -90,4 +102,5 @@ Account created (EU data center) before the trial. No agent installed yet: agent
 | --- | --- | --- |
 | Sign-up offered only Kanban / Scrum templates | Sign-up started in Jira (work management), not in JSM | JSM already existed on the site; new space created via Spaces → + → IT service management |
 | SLA goals counter stayed at "5 of 90" after editing | The counter counts goal groups (per category), not priority rows | Verified with a test ticket instead |
+| First check of the SLA config: resolution SLA had no pause condition; "All remaining work items" had no target | Pause was not saved in the first edit; default row left untouched | Added pause on Waiting for customer; set `Muster Bürozeiten` 8h / 27h |
 | Queue column "Time to resolution": "There was a problem showing this field" | SLA recalculation after config change and priority change | Refresh in the work item's SLA panel; transient |
