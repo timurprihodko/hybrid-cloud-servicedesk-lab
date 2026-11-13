@@ -16,7 +16,7 @@ Follow-up to my first lab, [homelab](https://github.com/timurprihodko/homelab) (
 | 6 | Intune: enrollment, compliance, apps, Autopilot | Planned |
 | 7 | Exchange Online, Teams, SharePoint | Planned |
 | 8 | Defender for Business and Action1 | Planned |
-| 9 | Service desk in Jira Service Management (15 tickets) | Planned |
+| 9 | Service desk in Jira Service Management (15 tickets) | In progress: space, priorities, calendar, SLAs and portal set up ([docs](docs/09-service-desk.md)); tickets and knowledge base pending |
 
 ## Architecture
 
