@@ -167,7 +167,49 @@ On DC01 the DHCP console shows the lease for CL01 (10.10.20.100) in the CLIENT s
 | VM | Snapshot | State |
 | --- | --- | --- |
 | DC01 | `DC01-adds-ready` | Forest, DNS, DHCP, OUs and users configured |
+| DC01 | `DC01-updated-healthy` | After Windows Update, health check and VirtualBox hardening |
 | CL01 | `CL01-joined` | Joined to the domain as CL01 |
+
+## Health check and VirtualBox hardening
+
+After the reboot with updates, `dcdiag /q` reported `DFSREvent` and `SystemLog`.
+
+| Check | Result |
+| --- | --- |
+| `dcdiag /test:DFSREvent` (elevated) | Passed. DFSR event 4602: SYSVOL initialized, no errors in the last 24 h |
+| SYSVOL / NETLOGON | Both shared, `SysvolReady = 1`, `dcdiag /test:netlogons` passed |
+| `dfsrmig /getglobalstate` | `Eliminated` (new forest, SYSVOL replicated by DFSR only) |
+| DHCP authorization | `Get-DhcpServerInDC` lists DC01; event 1044 after each start |
+| Time | `w32tm /query /source`: `1.at.pool.ntp.org` |
+
+`SystemLog` checks error and warning events of the last 60 minutes, so it fails after every boot on the known events below. None of them affect AD DS.
+
+| Event | Source | Cause | Action |
+| --- | --- | --- | --- |
+| 134, 1014 | Time-Service, DNS-Client | W32Time starts before the local DNS server (DC01 uses `127.0.0.1`); NTP peers cannot be resolved for a short time | None, NTP syncs after a retry |
+| 1059 | DHCP-Server | Authorization check before AD DS is ready; 1044 follows in the same second | None |
+| 34 | disk | AD DS disables the disk write cache to protect `NTDS.dit` | None, by design |
+| 1796, 1801 | TPM-WMI | Secure Boot CA 2023 update cannot be applied: Secure Boot is disabled on DC01 | Accepted for the lab |
+| 10154 | WinRM | WSMAN SPNs not registered (Network Service lacks permission); Kerberos uses the HOST SPN | None |
+| 6038 | LsaSrv | NTLM usage audit warning of Server 2025 | None |
+| 10016, 10005 | DistributedCOM | Standard permission noise | None |
+| 10020 | DHCP-Server | DHCPv6 not serving: no static IPv6 address | None |
+| 20 | WindowsUpdateClient | Store update of Windows Terminal failed (`0x80073D02`, package in use) | None, retried by the Store |
+
+VirtualBox changes on the host (DC01 powered off):
+
+```powershell
+$vbox = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+& $vbox setextradata "DC01" "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled" 1
+& $vbox sharedfolder remove "DC01" --name "share"
+& $vbox setextradata "DC01" "GUI/LastCloseAction" "Shutdown"
+```
+
+| Change | Reason |
+| --- | --- |
+| Host time sync disabled | DC01 holds the PDC emulator role and is the time source of the domain; only NTP may set its clock |
+| Shared folder removed | No direct channel between host and domain controller |
+| Close action `Shutdown` | A saved state restores an old clock and a stale AD state on resume |
 
 ## Troubleshooting
 
@@ -183,10 +225,10 @@ On DC01 the DHCP console shows the lease for CL01 (10.10.20.100) in the CLIENT s
 | `Add-Computer`: joined, but "renaming it to 'CL01' failed ... The directory service is busy" | Join and rename in one call; the second change reached AD while the first was still being processed | Reboot, then `Rename-Computer -NewName CL01 -DomainCredential MUSTER\adm-timur -Restart` |
 | Black screen after the reboot following the domain join, no disk activity | Unclear | **Machine → Reset**; normal boot afterwards |
 | Shared clipboard between host and CL01 did not work | Not resolved yet | Commands typed manually |
+| `dcdiag /q`: `DFSREvent` failed after the update reboot | Test run shortly after boot / without elevation | Elevated `dcdiag /test:DFSREvent` passed; see Health check |
+| `dcdiag /q`: `SystemLog` failed | Known boot-time events of the last 60 min | Documented in Health check, accepted |
 
 ## Next steps
 
-1. Disable VirtualBox host time sync for DC01 (`GetHostTimeDisabled 1`), so only NTP sets the clock of the PDC.
-2. Remove the VirtualBox shared folder from DC01 to keep the lab isolated from the host.
-3. Block 2 part 2: replace `TEMP-Any-to-WAN` with strict rules. DC01 then needs DNS (53) and NTP (123) to the internet in addition to HTTPS.
-4. Block 4 (from 16 Nov 2026): Microsoft 365 trial, `06-Set-UpnSuffix.ps1`, Entra Connect / Cloud Sync, hybrid join of CL01.
+1. Block 2 part 2: replace `TEMP-Any-to-WAN` with strict rules. DC01 then needs DNS (53) and NTP (123) to the internet in addition to HTTPS.
+2. Block 4 (from 16 Nov 2026): Microsoft 365 trial, `06-Set-UpnSuffix.ps1`, Entra Connect / Cloud Sync, hybrid join of CL01.
