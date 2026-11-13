@@ -18,7 +18,7 @@ This file grows with the block. The first part (setup) was done before the Micro
 | Channel access | Restricted: only customers added by agents or admins (default was open to anyone) |
 | Browser | Separate Chrome profile `Lab` for all lab portals (Jira, Action1, later Entra / Intune / Sophos) |
 
-The Free plan has no change management (Premium only). Changes are recorded as service requests with the label `change`.
+The Free plan has no change management (Premium only); change management is not part of this lab.
 
 ### Request types (template defaults)
 
