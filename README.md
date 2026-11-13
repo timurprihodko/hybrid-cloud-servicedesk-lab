@@ -17,6 +17,8 @@ Follow-up to my first lab, [homelab](https://github.com/timurprihodko/homelab) (
 | 7 | Exchange Online, Teams, SharePoint | Planned |
 | 8 | Defender for Business and Action1 | Planned |
 | 9 | Service desk in Jira Service Management (15 tickets) | In progress: space, priorities, calendar, SLAs and portal set up ([docs](docs/09-service-desk.md)); tickets and knowledge base pending |
+| 10 | File server: share with AGDLP permissions on DC01 | Planned |
+| 11 | Backup with Veeam Community Edition: DC01 backup and restore test | Planned |
 
 ## Architecture
 
